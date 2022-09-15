@@ -33,12 +33,15 @@ function addBooktoLibrary() {
     newButton2.classList.add("cread");
     if (myLibrary[0].read == "yes") {
         newButton2.innerHTML = "Read";
-    } else newButton2.innerHTML = "Unread";
+        newButton2.style.backgroundColor = "lightgreen"
+    } else (newButton2.innerHTML = "Unread") && (newButton2.style.backgroundColor = "pink");
     newButton2.addEventListener('click', function() {
         if (newButton2.innerHTML == "Read") {
             newButton2.innerHTML = "Unread";
+            newButton2.style.backgroundColor = "pink";
         } else if (newButton2.innerHTML == "Unread") {
             newButton2.innerHTML = "Read";
+            newButton2.style.backgroundColor = "lightgreen"
         }
     });
     newDiv.appendChild(newButton2);
