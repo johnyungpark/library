@@ -37,7 +37,7 @@ form {
 }
 
 .formbox {
-    margin: 25px;
+    margin: 15px;
 }
 
 #title, #author {
@@ -49,10 +49,12 @@ button {
     height: 30px;
     border-radius: 10px;
     font-weight: bolder;
+    cursor: pointer;
 }
 
-button:hover, button.cread:hover {
+button:hover {
     background-color: darkgray;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .mainbody {
@@ -65,16 +67,24 @@ button:hover, button.cread:hover {
     grid-gap: 20px;
 }
 
-.newDivw {
+.diva {
     border: 1px solid black;
     background: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
 }
 
-button.cread {
-    width: 75px;
-    background-color: lightgrey;
+button.read {
+    width: 125px;
+    cursor: pointer;
+}
+
+button.read:hover{
+    color: darkslategrey;
 }

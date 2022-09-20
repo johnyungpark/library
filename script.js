@@ -1,56 +1,79 @@
 let test1 = document.querySelector('.test')
 let submit = document.querySelector('.submit')
 let mainbody = document.querySelector('.mainbody')
-let myLibrary = [];
+let Library = [];
 
-function Book() {
-    event.preventDefault();
-    let title = document.getElementById('title').value;
-    let author1 = document.getElementById('author').value;
-    let pages1 = document.getElementById('pages').value;
-    let read1 = document.querySelector('input[name="read"]:checked').value;
-    let obj = {
-        name: title,
-        author: author1,
-        pages: pages1,
-        read: read1,
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
     }
-    myLibrary.unshift(obj);
+
+    addDisplay() {
+      let diva = document.createElement('div');
+      diva.classList.add('diva');
+      diva.innerHTML = "Title: " + this.title + "<br>Author: " + this.author + "<br>Pages: " + this.pages;
+      mainbody.appendChild(diva);
+      let rbutton = document.createElement('button');
+      rbutton.classList.add('read');
+      rbutton.innerText = "Read? " + this.read;
+      diva.appendChild(rbutton);
+      if (this.read == "yes") {
+        rbutton.style.backgroundColor = "lightgreen";
+      } else rbutton.style.backgroundColor = "pink";
+      rbutton.addEventListener('click', (e) => this.readSwap(e));
+      let delete1 = document.createElement('button');
+      delete1.classList.add('delete');
+      delete1.innerText = "Delete";
+      diva.appendChild(delete1);
+      delete1.addEventListener('click', (a) => this.deleteThis(a));
+      let obj = {
+        title: this.title, 
+        author: this.author,
+        pages: this.pages,
+        read: this.read,
+        div: diva,
+        rbutton: rbutton,
+        delete1: delete1
+      }
+      Library.push(obj)
+    }
+
+    readSwap(e) {
+      let button = e.target;
+      let index = Library.findIndex(obj => obj.rbutton === button);
+      if (this.read == "yes") {
+        this.read = "no";
+        button.style.backgroundColor = "pink";
+        Library[index].read = "no";
+        button.innerText = "Read? " + this.read;
+      } else if (this.read == "no") {
+        this.read = "yes";
+        button.style.backgroundColor = "lightgreen";
+        Library[index].read = "yes";
+        button.innerText = "Read? " + this.read;
+      }
+    }
+
+    deleteThis(a) {
+      let button = a.target;
+      let index = Library.findIndex(obj => obj.delete1 === button);
+      mainbody.removeChild(Library[index].div);
+      Library.splice(index, 1);
+    }
+
 }
 
-
-function addBooktoLibrary() {
-    Book();
-    let newDiv = document.createElement("div");
-    newDiv.classList.add("newDivw");
-    newDiv.innerHTML = "Title: " + myLibrary[0].name + "<br>Author: " + myLibrary[0].author + "<br>Total pages: " + myLibrary[0].pages + "<br>Read status?";
-    newDiv.style.width = "300px";
-    newDiv.style.height = "300px";
-    newDiv.style.margin = "10px";
-    newDiv.style.borderRadius = "10px";
-    newDiv.style.textAlign = "center";
-    let newButton2 = document.createElement("button");
-    newButton2.classList.add("cread");
-    if (myLibrary[0].read == "yes") {
-        newButton2.innerHTML = "Read";
-        newButton2.style.backgroundColor = "lightgreen"
-    } else (newButton2.innerHTML = "Unread") && (newButton2.style.backgroundColor = "pink");
-    newButton2.addEventListener('click', function() {
-        if (newButton2.innerHTML == "Read") {
-            newButton2.innerHTML = "Unread";
-            newButton2.style.backgroundColor = "pink";
-        } else if (newButton2.innerHTML == "Unread") {
-            newButton2.innerHTML = "Read";
-            newButton2.style.backgroundColor = "lightgreen"
-        }
-    });
-    newDiv.appendChild(newButton2);
-    let newButton = document.createElement("button");
-    newButton.innerHTML = "Delete";
-    newDiv.appendChild(newButton);
-    mainbody.appendChild(newDiv);
-    newButton.addEventListener('click', () => (mainbody.removeChild(newDiv)));
-    }
-
-submit.addEventListener('click', () => addBooktoLibrary());
+submit.addEventListener('click', function() {
+  event.preventDefault();
+  let title = document.getElementById('title').value;
+  let author1 = document.getElementById('author').value;
+  let pages1 = document.getElementById('pages').value;
+  let read1 = document.querySelector('input[name="read"]:checked').value;
+  let book1 = new Book(title, author1, pages1, read1);
+  book1.addDisplay();
+}
+);
 
