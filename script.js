@@ -74,6 +74,9 @@ submit.addEventListener('click', function() {
   let read1 = document.querySelector('input[name="read"]:checked').value;
   let book1 = new Book(title, author1, pages1, read1);
   book1.addDisplay();
+  document.getElementById('title').value = "";
+  document.getElementById('author').value = "";
+  document.getElementById('pages').value = "";
 }
 );
 

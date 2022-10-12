@@ -41,7 +41,11 @@ form {
 }
 
 #title, #author {
-    width: 260px;
+    width: 16%;
+}
+
+#pages {
+    width: 12%;
 }
 
 button {
